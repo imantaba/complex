@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:                                          #higher level configration around ingress object
+    kubernetes.io/ingress.class: nginx                  #we want to create a ingress congiguration based on the nginx project
+    nginx.ingress.kubernetes.io/rewrite-target: /       #rewrite all requested addresses to / ('/api' to '/') after sending request to server
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:                                    #we are going to have a backend that points out the client-cluster-ip-service in client-cluster-ip-service.yml file
+              serviceName: client-cluster-ip-service
+              servicePort: 3000
+          - path: /api/
+            backend:
+              serviceName: server-cluster-ip-service
+              servicePort: 5000
