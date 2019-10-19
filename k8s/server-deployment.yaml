@@ -34,4 +34,4 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: pgpassword
-                  key: PASSWORD         # key that we created befor in kubectl create secret command
+                  key: PGPASSWORD
